@@ -23,8 +23,7 @@ const PostModel = {
             .input("id", sql.Int, id)
             .input("title", sql.NVarChar, data.title)
             .input("content", sql.NVarChar, data.content)
-            .query(`UPDATE posts SET title = @title, content = @content WHERE id = @id
-            `);
+            .query(`UPDATE posts SET title = @title, content = @content WHERE id = @id`);
     },
 
     delete: async (id) => {

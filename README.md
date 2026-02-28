@@ -5,40 +5,13 @@
 - Entry point: `index.js`
 - App chính: `src/app.js`
 
-## 2. Định vị sản phẩm 
-- **Đối tượng mục tiêu:** nhà phát triển cá nhân, team nhỏ, hoặc người học muốn prototype một hệ thống blog.
+## 2. Xác định vấn đề
+- **Đối tượng mục tiêu:** nhóm người muốn dùng blog để chia sẻ, đọc, bình luận bài viết của người khác.
 - **Vấn đề cần giải quyết:** không có backend nhẹ, rõ ràng, có xác thực và dễ mở rộng cho demo hoặc tích hợp frontend.
 - **Giá trị cốt lõi:** API RESTful đơn giản, bảo mật bằng JWT, kiến trúc module dễ bảo trì.
 - **Thước đo thành công:** endpoints cơ bản hoàn chỉnh, dễ chạy bằng Postman, dễ mở rộng.
 
-## 3. Phân tích yêu cầu 
-
-### 3.1 Yêu cầu chức năng
-- Đăng ký, đăng nhập (JWT).
-- CRUD cho `posts` (chỉ user đăng nhập có quyền chỉnh sửa/xóa).
-- Thêm/xóa bình luận (chỉ user đăng nhập comment có thể xóa).
-- Xem tất cả bài viết, xem bình luận từng bài.
-
-### 3.2 Yêu cầu phi chức năng
-- Mật khẩu phải được hash (bcrypt).
-- Xác thực token trong header `Authorization`.
-- Trả response chuẩn, xử lý lỗi rõ ràng.
-
-## 4. Tính năng chi tiết & tiêu chí 
-
-- **Auth (Users)**
-    - Chức năng: register/login, trả JWT.
-    - Tiêu chí: register trả 201 không bao gồm password; login trả token và user info.
-
-- **Posts**
-    - Chức năng: tạo, sửa, xóa, lấy danh sách.
-    - Tiêu chí: tạo trả 201 với `id`; cập nhật/xóa chỉ thực hiện nếu `req.user.id === post.user_id`.
-
-- **Comments**
-    - Chức năng: thêm, xóa comment.
-    - Tiêu chí: thêm trả 201; xóa chỉ cho owner comment.
-
-## 5. Hành trình người dùng (User journeys)
+## 3. Hành trình người dùng (User journeys)
 
 - **Guest**
     - Xem bài: `GET /api/posts/getAll` → `GET /api/posts/:id` → `GET /api/comments/:post_id`.
@@ -53,6 +26,34 @@
 
 - **Admin (tùy chọn)**
     - Xóa tất cả bài/bình luận, quản lý người dùng.
+
+## 4. Phân tích yêu cầu 
+
+### 4.1 Yêu cầu chức năng
+- Đăng ký, đăng nhập (JWT).
+- CRUD cho `posts` (chỉ user đăng nhập có quyền chỉnh sửa/xóa).
+- Thêm/xóa bình luận (chỉ user đăng nhập comment có thể xóa).
+- Xem tất cả bài viết, xem bình luận từng bài.
+
+### 4.2 Yêu cầu phi chức năng
+- Mật khẩu phải được hash (bcrypt).
+- Xác thực token trong header `Authorization`.
+- Trả response chuẩn, xử lý lỗi rõ ràng.
+
+## 5. Tính năng chi tiết & tiêu chí 
+
+- **Auth (Users)**
+    - Chức năng: register/login, trả JWT.
+    - Tiêu chí: register trả 201 không bao gồm password; login trả token và user info.
+
+- **Posts**
+    - Chức năng: tạo, sửa, xóa, lấy danh sách.
+    - Tiêu chí: tạo trả 201 với `id`; cập nhật/xóa chỉ thực hiện nếu `req.user.id === post.user_id`.
+
+- **Comments**
+    - Chức năng: thêm, xóa comment.
+    - Tiêu chí: thêm trả 201; xóa chỉ cho owner comment.
+
 
 ## 6. API chi tiết (payload & response mẫu)
 Base URL: `http://localhost:3000/api`
