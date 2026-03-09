@@ -20,3 +20,5 @@ const pool = new sql.ConnectionPool(config).connect().then(pool => {
 
 
 module.exports = { sql, pool };
+
+
