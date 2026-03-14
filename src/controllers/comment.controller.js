@@ -15,8 +15,8 @@ const CommentController = {
     getByPostId: async (req, res) => {
         try {
             const post_id = req.params.post_id;
-            const comments = await CommentService.getByPostId(post_id);
-            res.json(comments);
+            const result = await CommentService.getByPostId(post_id);
+            res.json(result);
         } catch (error) {
             res.status(400).json({ message: error.message });
         }
