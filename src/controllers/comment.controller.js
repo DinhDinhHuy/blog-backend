@@ -15,7 +15,7 @@ const CommentController = {
     getByPostId: async (req, res) => {
         try {
             const post_id = req.params.post_id;
-            const result = await CommentService.getByPostId(post_id);
+            const result = await CommentService.findAll({where: (post_id)});
             res.json(result);
         } catch (error) {
             res.status(400).json({ message: error.message });
@@ -25,7 +25,7 @@ const CommentController = {
     delete: async (req, res) => {
         try {
             const id = req.params.id;
-            const result = await CommentService.delete(id);
+            const result = await CommentService.destroy(id);
             res.json(result);
         } catch (error) {
             res.status(400).json({ message: error.message });

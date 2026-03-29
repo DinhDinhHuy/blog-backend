@@ -1,4 +1,4 @@
-const CommentModel = require("../models/comment.model");
+const Comment = require("../models/comment.model");
 
 const CommentService = {
     create: async (data, user_id) => {
@@ -6,7 +6,7 @@ const CommentService = {
             throw new Error("Thiếu nội dung hoặc post_id");
         }
 
-        await CommentModel.create({
+        await Comment.create({
             content: data.content,
             post_id: data.post_id,
             user_id
@@ -16,11 +16,11 @@ const CommentService = {
     },
 
     getByPostId: async (post_id) => {
-        return await CommentModel.getByPostId(post_id);
+        return await Comment.findAll({ where: { post_id } });
     },
 
     delete: async (id) => {
-        await CommentModel.delete(id);
+        await Comment.destroy(id);
         return { message: "Xóa bình luận thành công" };
     }
 };

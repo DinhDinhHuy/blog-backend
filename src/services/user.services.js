@@ -1,22 +1,21 @@
-const UserModel = require("../models/user.model");
+const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const UserService = {
-    register: async (userData) => {
-        const existingUser = await UserModel.findByEmail(userData.email)
-        if(existingUser){
+    register: async (userData) => {     
+        const email = await User.findOne({where: {email: userData.email}});
+        if(email){
             throw new Error("Email đã tồn tại!")
         }
-        
         const hashPassword = await bcrypt.hash(userData.password, 10)
         const newUser = {
             username: userData.username,
             email: userData.email,
             password: hashPassword
         };
-        await UserModel.create(newUser);
+        await User.create(newUser);
         return{
             message: "Đăng kí thành công!"
         };
@@ -25,11 +24,6 @@ const UserService = {
     login: async (email, password) => {
         if(!email || !password){
             throw new Error("Email và Password là bắt buộc!")
-        }
-
-        const user = await UserModel.findByEmail(email)
-        if(!user){
-            throw new Error("Email không tồn tại!")
         }
 
         const passwordUser = await bcrypt.compare(password, user.password)
