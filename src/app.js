@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
+require('./models/associations');
+
 const app = express();
 
 app.use(cors());
