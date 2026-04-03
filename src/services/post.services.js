@@ -2,7 +2,7 @@ const Post = require("../models/post.model");
 
 const PostService = {
     getAll: async () => {
-        return await Post.getAll();
+        return await Post.findAll();
     },
 
     create: async (data, user_id) => {
@@ -18,7 +18,7 @@ const PostService = {
         if(!checkPost){
             throw new Error("Bài viết không tồn tại!")
         }
-        await Post.update(id, data);
+        await Post.update(data, {where: {id}});
         return { message: "Cập nhật thành công" };
     },
 
@@ -27,7 +27,7 @@ const PostService = {
         if(!checkPost){
             throw new Error("Bài viết không tồn tại!")
         }
-        await Post.destroy(id);
+        await Post.destroy({where: {id}});
         return { message: "Xóa thành công" };
     }
 };

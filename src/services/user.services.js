@@ -26,6 +26,11 @@ const UserService = {
             throw new Error("Email và Password là bắt buộc!")
         }
 
+        const user = await User.findOne({where: {email: email}})
+        if(!user){
+            throw new Error("Email không tồn tại")    
+        }
+
         const passwordUser = await bcrypt.compare(password, user.password)
         if(!passwordUser){
             throw new Error("Sai mật khẩu!")

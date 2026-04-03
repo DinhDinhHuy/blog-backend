@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const Comment = require("../models/comment.model");
 
 const CommentService = {
@@ -20,7 +21,7 @@ const CommentService = {
     },
 
     delete: async (id) => {
-        await Comment.destroy(id);
+        await Comment.destroy({where: {id}});
         return { message: "Xóa bình luận thành công" };
     }
 };
